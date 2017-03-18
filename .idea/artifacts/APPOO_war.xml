@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="APPOO:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="APPOO-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="APPOO:war exploded" />
+    </root>
+  </artifact>
+</component>
