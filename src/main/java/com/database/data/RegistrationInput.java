@@ -14,11 +14,11 @@ public class RegistrationInput {
         try {
             Connection connection = ConnectionConfiguration.getDBConnection();
             Statement statement = connection.createStatement();
-            String query = "insert into Registration (IDREGISTRATION, FIRSTNAME, LASTNAME, EMAIL, PASSWORD)VALUES(" + putValidId() + ",'" + registration.getFirstName() + "','" + registration.getLastName() + "','" + registration.getEmail() + "','" + registration.getPassword() + "')";
+            String query = "insert into Registration (IDREGISTRATION, FIRSTNAME, LASTNAME, EMAIL, PASSWORD, IDRULE)VALUES(" + putValidId() + ",'" + registration.getFirstName() + "','" + registration.getLastName() + "','" + registration.getEmail() + "','" + registration.getPassword() + "'," + RuleInput.setRule(UserRule.GUEST) + ")";
             statement.executeUpdate(query);
             connection.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return true;
     }

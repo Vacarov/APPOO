@@ -1,8 +1,5 @@
 package com.database.data;
 
-import java.util.Collection;
-import java.util.Collections;
-
 /**
  * Created by wergin on 11-Mar-17.
  */
@@ -13,7 +10,7 @@ public class AuthetificationService {
         else return false;
     }
 
-    public Boolean authetification(String email, String password) {
+    public Boolean authetificate(String email, String password) {
         RegistrationRepository registrationRepository = new RegistrationRepository();
         if ((existEmail(email).booleanValue()) && (registrationRepository.findPasswordByEmail(email).equals(password)))
             return true;

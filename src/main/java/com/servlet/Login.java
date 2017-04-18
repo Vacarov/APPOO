@@ -1,4 +1,5 @@
 package com.servlet;
+
 import com.database.data.AuthetificationService;
 
 import javax.servlet.annotation.WebServlet;
@@ -18,11 +19,11 @@ public class Login extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         AuthetificationService authetificationService = new AuthetificationService();
-        if (authetificationService.authetification(email, password).booleanValue()) {
+        if (authetificationService.authetificate(email, password).booleanValue()) {
             HttpSession session = request.getSession();
             session.setAttribute("emailLogin", email);
             response.setContentType("text/html");
-            response.sendRedirect("profile.jsp");
+            response.sendRedirect("admin.jsp");
         } else response.sendRedirect("index.jsp");
     }
 }

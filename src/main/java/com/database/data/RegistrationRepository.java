@@ -1,6 +1,5 @@
 package com.database.data;
 
-
 import com.database.util.ConnectionConfiguration;
 
 import java.sql.Connection;
@@ -13,7 +12,6 @@ import java.util.List;
  * Created by wergin on 11-Mar-17.
  */
 public class RegistrationRepository {
-
     public static List<String> getAllEmails() {
         List<String> emailsList = new ArrayList();
         try {
@@ -32,6 +30,28 @@ public class RegistrationRepository {
         return emailsList;
     }
 
+
+    public static List<Registration> getAllRegistrations() {
+        List<Registration> registrationList = new ArrayList<Registration>();
+        try {
+            Connection connection = ConnectionConfiguration.getDBConnection();
+            Statement statement = connection.createStatement();
+            String query = "select firstName,lastName,email,password from Registration";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                String email = resultSet.getString("email");
+                String password = resultSet.getString("password");
+                Registration registration = new Registration(firstName, lastName, email, password);
+                registrationList.add(registration);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+        return registrationList;
+    }
+
     public String findPasswordByEmail(String email) {
         String password = null;
         try {
@@ -47,6 +67,74 @@ public class RegistrationRepository {
             throw new RuntimeException(e);
         }
         return password;
+    }
+
+    public String findFirstNameById(int idRegistration){
+        String firstName=null;
+        try {
+            Connection connection = ConnectionConfiguration.getDBConnection();
+            Statement statement = connection.createStatement();
+            String query = "select firstName from Registration where idRegistration = " + idRegistration ;
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                firstName = resultSet.getString("firstName");
+            }
+            connection.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return firstName;
+    }
+
+    public String findLastNameById(int idRegistration){
+        String lastName=null;
+        try {
+            Connection connection = ConnectionConfiguration.getDBConnection();
+            Statement statement = connection.createStatement();
+            String query = "select lastName from Registration where idRegistration = " + idRegistration ;
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                lastName = resultSet.getString("lastName");
+            }
+            connection.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return lastName;
+    }
+
+    public int findRuleIdById(int idRegistration){
+        int idRule = -1;
+        try {
+            Connection connection = ConnectionConfiguration.getDBConnection();
+            Statement statement = connection.createStatement();
+            String query = "select idRule from Registration where idRegistration = " + idRegistration ;
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                idRule = resultSet.getInt("idRule");
+            }
+            connection.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return idRule;
+    }
+
+    public int findIdByEmail(String email) {
+        int idRegistration = 0;
+        try {
+            Connection connection = ConnectionConfiguration.getDBConnection();
+            Statement statement = connection.createStatement();
+            String query = "select idRegistration from Registration where EMAIL = '" + email + "'";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                idRegistration = resultSet.getInt("idRegistration");
+            }
+            connection.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return idRegistration;
     }
 
     public Integer findMaximalId() {
