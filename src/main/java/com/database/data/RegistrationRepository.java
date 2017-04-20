@@ -120,6 +120,23 @@ public class RegistrationRepository {
         return idRule;
     }
 
+    public String findRuleNameByIdRegistration(int idRegistration){
+        String nameRule = null;
+        try {
+            Connection connection = ConnectionConfiguration.getDBConnection();
+            Statement statement = connection.createStatement();
+            String query = "select Rule.Name from Rule left join Registration on Registration.IDRULE = Rule.IDRULE where Registration.idRegistration = " + idRegistration ;
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                nameRule = resultSet.getString("name");
+            }
+            connection.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return nameRule;
+    }
+
     public int findIdByEmail(String email) {
         int idRegistration = 0;
         try {

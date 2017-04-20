@@ -31,7 +31,7 @@ public class RuleRepository {
         return ruleList;
     }
 
-    public int getIdByRule(Enum<UserRule> ruleEnum) {
+    public int findIdByName(Enum<UserRule> ruleEnum) {
         int idRule = 0;
         try {
             Connection connection = ConnectionConfiguration.getDBConnection();
@@ -62,5 +62,10 @@ public class RuleRepository {
             throw new RuntimeException(e);
         }
         return name;
+    }
+
+    public String findUserRule(String email){
+        RegistrationRepository registrationRepository = new RegistrationRepository();
+        return registrationRepository.findRuleNameByIdRegistration(registrationRepository.findIdByEmail(email));
     }
 }

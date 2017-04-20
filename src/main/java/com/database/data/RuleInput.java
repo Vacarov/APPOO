@@ -6,6 +6,6 @@ package com.database.data;
 public class RuleInput {
     public static int setRule(Enum<UserRule> userRuleEnum){
         RuleRepository ruleRepository = new RuleRepository();
-        return ruleRepository.getIdByRule(userRuleEnum);
+        return ruleRepository.findIdByName(userRuleEnum);
     }
 }

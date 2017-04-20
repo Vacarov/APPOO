@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="css/mycss/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="css/mycss/admin-list-panel.css">
     <link rel="stylesheet" type="text/css" href="css/mycss/admin-menu.css">
+    <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/myjs/function.js"></script>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Profile</title>
 
@@ -135,7 +137,7 @@ Licensed under MIT
                             <td>
                                 <p data-placement="top" data-toggle="tooltip" title="Delete">
                                     <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal"
-                                            data-target="#delete"><span class="glyphicon glyphicon-trash"></span>
+                                            data-target="#delete"><span class="glyphicon glyphicon-trash" onclick="delete(1)"></span>
                                     </button>
                                 </p>
                             </td>

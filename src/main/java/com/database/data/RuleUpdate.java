@@ -9,7 +9,7 @@ import java.sql.Statement;
  * Created by wergin on 16-Apr-17.
  */
 public class RuleUpdate {
-    public void updateRuleIntoRegistration(int idRegistration, Enum<UserRule> userRuleEnum) {
+    public boolean updateRuleIntoRegistration(int idRegistration, Enum<UserRule> userRuleEnum) {
         try {
             Connection connection = ConnectionConfiguration.getDBConnection();
             Statement statement = connection.createStatement();
@@ -19,5 +19,6 @@ public class RuleUpdate {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return true;
     }
 }

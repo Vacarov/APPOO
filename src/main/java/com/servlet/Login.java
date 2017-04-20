@@ -1,6 +1,8 @@
 package com.servlet;
 
 import com.database.data.AuthetificationService;
+import com.database.data.RuleRepository;
+import com.database.data.UserRule;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +25,12 @@ public class Login extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("emailLogin", email);
             response.setContentType("text/html");
+            RuleRepository ruleRepository = new RuleRepository();
+            if (ruleRepository.findUserRule(email).equals(UserRule.ADMIN.toString().toLowerCase()))
             response.sendRedirect("admin.jsp");
+            else if (ruleRepository.findUserRule(email).equals(UserRule.TEACHER.toString().toLowerCase()))
+                response.sendRedirect("teacher.jsp");
+            else response.sendRedirect("student.jsp");
         } else response.sendRedirect("index.jsp");
     }
 }
