@@ -17,8 +17,28 @@ public class Registration {
         this.password = password;
     }
 
+    public Registration(int idRegistration, String firstName, String lastName, String email, String password) {
+        this.idRegistration = idRegistration;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+
     public int getIdRegistration() {
         return idRegistration;
+    }
+
+    public void setIdRegistration(int idRegistration) {
+        this.idRegistration = idRegistration;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getFirstName() {
@@ -35,18 +55,6 @@ public class Registration {
 
     public String getPassword() {
         return password;
-    }
-
-    public void setIdRegistration(int idRegistration) {
-        this.idRegistration = idRegistration;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public void setEmail(String email) {

@@ -1,5 +1,7 @@
 package com.database.data;
 
+import java.sql.Time;
+
 /**
  * Created by wergin on 08-Apr-17.
  */

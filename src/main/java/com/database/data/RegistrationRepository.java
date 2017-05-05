@@ -30,26 +30,35 @@ public class RegistrationRepository {
         return emailsList;
     }
 
-
     public static List<Registration> getAllRegistrations() {
         List<Registration> registrationList = new ArrayList<Registration>();
         try {
             Connection connection = ConnectionConfiguration.getDBConnection();
             Statement statement = connection.createStatement();
-            String query = "select firstName,lastName,email,password from Registration";
+            String query = "select * from Registration";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
+                int idRegisrtation = resultSet.getInt("IdRegistration");
                 String firstName = resultSet.getString("firstName");
                 String lastName = resultSet.getString("lastName");
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("password");
-                Registration registration = new Registration(firstName, lastName, email, password);
+                Registration registration = new Registration(idRegisrtation, firstName, lastName, email, password);
                 registrationList.add(registration);
             }
         } catch (Exception e) {
             throw new RuntimeException();
         }
         return registrationList;
+    }
+
+    public Registration getDataRegistrationById(int idRegistration){
+        String firstName = findFirstNameById(idRegistration);
+        String lastName = findLastNameById(idRegistration);
+        String email = findEmailById(idRegistration);
+        String password = findPasswordById(idRegistration);
+        Registration registration = new Registration(firstName,lastName, email, password);
+        return registration;
     }
 
     public String findPasswordByEmail(String email) {
@@ -101,6 +110,40 @@ public class RegistrationRepository {
             throw new RuntimeException(e);
         }
         return lastName;
+    }
+
+    public String findEmailById(int idRegistration){
+        String email=null;
+        try {
+            Connection connection = ConnectionConfiguration.getDBConnection();
+            Statement statement = connection.createStatement();
+            String query = "select Email from Registration where idRegistration = " + idRegistration ;
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                email = resultSet.getString("Email");
+            }
+            connection.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return email;
+    }
+
+    public String findPasswordById(int idRegistration){
+        String password=null;
+        try {
+            Connection connection = ConnectionConfiguration.getDBConnection();
+            Statement statement = connection.createStatement();
+            String query = "select Password from Registration where idRegistration = " + idRegistration ;
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                password = resultSet.getString("Password");
+            }
+            connection.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return password;
     }
 
     public int findRuleIdById(int idRegistration){
