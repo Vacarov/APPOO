@@ -6,6 +6,7 @@ import com.database.data.quiz.course.CourseRepository;
 import com.database.data.quiz.quiz.QuizInput;
 import com.database.data.quiz.test.Test;
 import com.database.data.quiz.test.TestInput;
+import com.database.data.quiz.test.TestRepository;
 
 import java.util.Timer;
 
@@ -21,12 +22,7 @@ public class DemoMain {
         CourseInput courseInput = new CourseInput();
         QuizInput quizInput = new QuizInput();
         try{
-//            Timer timer = new Timer();
-//            timer.schedule(new SayHello(),0,1000);
-
-            Test test = new Test(1,"Cjimia biorganica",20,"asd",course);
-            TestInput testInput =  new TestInput();
-            testInput.insertNewTest(test);
+            System.out.println(TestRepository.getTestsByIdCourse(1));
              }
         catch (Exception e){
             e.printStackTrace();

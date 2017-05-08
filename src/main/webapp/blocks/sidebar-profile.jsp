@@ -4,8 +4,7 @@
     <div class="profile-usertitle-name">
         <%
             RegistrationRepository registrationRepository = new RegistrationRepository();
-            String emailFromSession = session.getAttribute("emailLogin").toString();
-            int idRegistration = registrationRepository.findIdByEmail(emailFromSession);
+            int idRegistration = Integer.parseInt(session.getAttribute("idRegistration").toString());
             String firstName = registrationRepository.findFirstNameById(idRegistration);
             String lastName = registrationRepository.findLastNameById(idRegistration);
             String role = registrationRepository.findRuleNameByIdRegistration(idRegistration);

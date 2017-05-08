@@ -2,14 +2,35 @@ package com.database.data.quiz.course;
 
 import com.database.util.ConnectionConfiguration;
 
+import javax.management.Query;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by wergin on 29-Apr-17.
  */
 public class CourseRepository {
+
+    public static List<Course> getAllCourses() throws Exception{
+        List<Course> courseList = new ArrayList<Course>();
+        try{
+            Connection connection = ConnectionConfiguration.getDBConnection();
+            Statement statement = connection.createStatement();
+            String query = " select * from Object ";
+            ResultSet resultSet= statement.executeQuery(query);
+            while (resultSet.next()){
+                int idCourse = Integer.parseInt(resultSet.getString("idObject"));
+                String name = resultSet.getString("name");
+                courseList.add(new Course(idCourse,name));
+            }
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+        return courseList;
+    }
 
     public String findNameById(int idCourse){
         String name = null;

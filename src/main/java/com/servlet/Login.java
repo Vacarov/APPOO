@@ -1,6 +1,7 @@
 package com.servlet;
 
 import com.database.data.AuthetificationService;
+import com.database.data.RegistrationRepository;
 import com.database.data.RuleRepository;
 import com.database.data.UserRule;
 
@@ -23,7 +24,8 @@ public class Login extends HttpServlet {
         AuthetificationService authetificationService = new AuthetificationService();
         if (authetificationService.authetificate(email, password).booleanValue()) {
             HttpSession session = request.getSession();
-            session.setAttribute("emailLogin", email);
+            RegistrationRepository registrationRepository = new RegistrationRepository();
+            session.setAttribute("idRegistration", registrationRepository.findIdByEmail(email));
             response.setContentType("text/html");
             RuleRepository ruleRepository = new RuleRepository();
             if (ruleRepository.findUserRule(email).equals(UserRule.ADMIN.toString().toLowerCase()))

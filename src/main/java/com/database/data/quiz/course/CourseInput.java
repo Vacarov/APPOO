@@ -9,11 +9,11 @@ import java.sql.Statement;
  * Created by wergin on 23-Apr-17.
  */
 public class CourseInput {
-    public boolean insertCourse(Course course) throws Exception{
+    public boolean insertCourse(String name) throws Exception{
         try {
             Connection connection = ConnectionConfiguration.getDBConnection();
             Statement statement = connection.createStatement();
-            String query = "insert into Object(idObject, Name)values(" + putValidIdCourse() + ",'" + course.getName() + "')";
+            String query = "insert into Object(idObject, Name)values(" + putValidIdCourse() + ",'" + name + "')";
             statement.executeUpdate(query);
         }
         catch (Exception e)

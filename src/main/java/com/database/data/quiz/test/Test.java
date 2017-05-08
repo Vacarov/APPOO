@@ -24,6 +24,13 @@ public class Test {
         this.course = course;
     }
 
+    public Test(int idTest, String name, int time, String author) {
+        this.idTest = idTest;
+        this.name = name;
+        this.time = time;
+        this.author = author;
+    }
+
     public int getIdTest() {
         return idTest;
     }
