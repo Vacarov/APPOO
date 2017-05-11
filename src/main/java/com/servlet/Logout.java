@@ -11,12 +11,12 @@ import java.io.IOException;
 /**
  * Created by wergin on 14-Mar-17.
  */
-@WebServlet(name = "Logout", urlPatterns = "/Logout")
+@WebServlet(name = "Logout", urlPatterns = "/logout")
 public class Logout extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        session.removeAttribute("emailLogin");
+        session.removeAttribute("idCourse");
         session.invalidate();
-        response.sendRedirect("index.jsp");
+        request.getRequestDispatcher("index.jsp").forward(request,response);
     }
 }

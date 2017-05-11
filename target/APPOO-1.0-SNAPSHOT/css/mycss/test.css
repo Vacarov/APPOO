@@ -35,6 +35,9 @@ label .btn-label {
     background: rgba(0,0,0,.15);
     height: 100%
 }
+label .btn-text-left{
+text-align: left !important;
+}
 
 label .glyphicon {
     top: 34%

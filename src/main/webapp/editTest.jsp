@@ -4,6 +4,7 @@
 <html lang="en">
 <%String title = "edit test";%>
 <%@include file="blocks/header.jsp"%>
+<%@include file="blocks/checks/check-user-session.jsp" %>
 <body>
 <% int idTest = Integer.parseInt(request.getAttribute("idTest").toString());
     TestRepository testRepository = new TestRepository();

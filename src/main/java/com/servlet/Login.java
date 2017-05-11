@@ -15,24 +15,29 @@ import java.io.IOException;
 /**
  * Created by wergin on 03-Mar-17.
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
+@WebServlet(name = "Login", urlPatterns = {"/login"})
 public class Login extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        AuthetificationService authetificationService = new AuthetificationService();
-        if (authetificationService.authetificate(email, password).booleanValue()) {
-            HttpSession session = request.getSession();
-            RegistrationRepository registrationRepository = new RegistrationRepository();
-            session.setAttribute("idRegistration", registrationRepository.findIdByEmail(email));
-            response.setContentType("text/html");
-            RuleRepository ruleRepository = new RuleRepository();
-            if (ruleRepository.findUserRule(email).equals(UserRule.ADMIN.toString().toLowerCase()))
-            response.sendRedirect("admin.jsp");
-            else if (ruleRepository.findUserRule(email).equals(UserRule.TEACHER.toString().toLowerCase()))
-                response.sendRedirect("teacher.jsp");
-            else response.sendRedirect("student.jsp");
-        } else response.sendRedirect("index.jsp");
+        try {
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            AuthetificationService authetificationService = new AuthetificationService();
+            if (authetificationService.authetificate(email, password).booleanValue()) {
+                HttpSession session = request.getSession();
+                RegistrationRepository registrationRepository = new RegistrationRepository();
+                int idRegistration = registrationRepository.findIdByEmail(email);
+                session.setAttribute("idRegistration", idRegistration);
+                response.setContentType("text/html");
+                RuleRepository ruleRepository = new RuleRepository();
+                if (ruleRepository.isAdmin(idRegistration) == true)
+                    request.getRequestDispatcher("admin.jsp").forward(request,response);
+                else if (ruleRepository.isTeacher(idRegistration) == true)
+                    request.getRequestDispatcher("teacher.jsp").forward(request, response);
+                else request.getRequestDispatcher("student.jsp").forward(request,response);
+            } else request.getRequestDispatcher("index.jsp").forward(request,response);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

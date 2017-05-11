@@ -4,8 +4,9 @@
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
-<%String title = "Overview";%>
+<%String title = "Administration";%>
 <%@include file="blocks/header.jsp" %>
+<%@include file="blocks/checks/check-user-session.jsp" %>
 <body>
 <br><br><br><br>
 <div class="container">

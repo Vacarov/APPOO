@@ -1,25 +1,24 @@
 package com.database.data.quiz.quiz;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by wergin on 23-Apr-17.
  */
 public class Quiz {
     private int idQuiz;
     private String question;
-    private String variantA;
-    private String variantB;
-    private String variantC;
-    private String variantD;
+    private Map<Variant, String> variants;
     private Variant rightVariant;
+    private int idTest;
 
-    public Quiz(int idQuiz, String question, String variantA, String variantB, String variantC, String variantD, Variant rightVariant) {
+    public Quiz(int idQuiz, String question, Map<Variant, String> variants, Variant rightVariant, int idTest) {
         this.idQuiz = idQuiz;
         this.question = question;
-        this.variantA = variantA;
-        this.variantB = variantB;
-        this.variantC = variantC;
-        this.variantD = variantD;
+        this.variants = variants;
         this.rightVariant = rightVariant;
+        this.idTest = idTest;
     }
 
     public int getIdQuiz() {
@@ -38,36 +37,12 @@ public class Quiz {
         this.question = question;
     }
 
-    public String getVariantA() {
-        return variantA;
+    public Map<Variant, String> getVariants() {
+        return variants;
     }
 
-    public void setVariantA(String variantA) {
-        this.variantA = variantA;
-    }
-
-    public String getVariantB() {
-        return variantB;
-    }
-
-    public void setVariantB(String variantB) {
-        this.variantB = variantB;
-    }
-
-    public String getVariantC() {
-        return variantC;
-    }
-
-    public void setVariantC(String variantC) {
-        this.variantC = variantC;
-    }
-
-    public String getVariantD() {
-        return variantD;
-    }
-
-    public void setVariantD(String variantD) {
-        this.variantD = variantD;
+    public void setVariants(Map<Variant, String> variants) {
+        this.variants = variants;
     }
 
     public Variant getRightVariant() {
@@ -76,5 +51,13 @@ public class Quiz {
 
     public void setRightVariant(Variant rightVariant) {
         this.rightVariant = rightVariant;
+    }
+
+    public int getIdTest() {
+        return idTest;
+    }
+
+    public void setIdTest(int idTest) {
+        this.idTest = idTest;
     }
 }

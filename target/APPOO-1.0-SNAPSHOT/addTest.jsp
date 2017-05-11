@@ -5,6 +5,7 @@
 <html lang="en">
 <%String title = "add test";%>
 <%@include file="blocks/header.jsp"%>
+<%@include file="blocks/checks/check-user-session.jsp" %>
 <body>
 <br><br><br><br>
 <div class="row">

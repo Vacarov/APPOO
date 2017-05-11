@@ -47,12 +47,48 @@ public class RuleRepository {
         return idRule;
     }
 
-    public String findNameById(int idRule){
+    public boolean isAdmin(int idRegistration) {
+        boolean isAdmin = false;
+        RegistrationRepository registrationRepository = new RegistrationRepository();
+        if (registrationRepository.findRuleIdById(idRegistration) == 1) {
+            isAdmin = true;
+        }
+        return isAdmin;
+    }
+
+    public boolean isStudent(int idRegistration) {
+        boolean isStudent = false;
+        RegistrationRepository registrationRepository = new RegistrationRepository();
+        if (registrationRepository.findRuleIdById(idRegistration) == 2) {
+            isStudent = true;
+        }
+        return isStudent;
+    }
+
+    public boolean isTeacher(int idRegistration) {
+        boolean isTeacher = false;
+        RegistrationRepository registrationRepository = new RegistrationRepository();
+        if (registrationRepository.findRuleIdById(idRegistration) == 3) {
+            isTeacher = true;
+        }
+        return isTeacher;
+    }
+
+    public boolean isGuest(int idRegistration) {
+        boolean isGuest = false;
+        RegistrationRepository registrationRepository = new RegistrationRepository();
+        if (registrationRepository.findRuleIdById(idRegistration) == 4) {
+            isGuest = true;
+        }
+        return isGuest;
+    }
+
+    public String findNameById(int idRule) {
         String name = null;
         try {
             Connection connection = ConnectionConfiguration.getDBConnection();
             Statement statement = connection.createStatement();
-            String query = "select Name from Rule where idRule = " + idRule ;
+            String query = "select Name from Rule where idRule = " + idRule;
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 name = resultSet.getString("Name");
@@ -64,7 +100,7 @@ public class RuleRepository {
         return name;
     }
 
-    public String findUserRule(String email){
+    public String findUserRule(String email) {
         RegistrationRepository registrationRepository = new RegistrationRepository();
         return registrationRepository.findRuleNameByIdRegistration(registrationRepository.findIdByEmail(email));
     }

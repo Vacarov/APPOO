@@ -9,11 +9,11 @@ import java.sql.Statement;
  * Created by wergin on 29-Apr-17.
  */
 public class QuizInput {
-    public boolean insertNewQuiz(Quiz quiz){
+    public boolean insertNewQuiz(String question, String variantA, String variantB,String variantC, String variantD,Variant rightVariant, int idTest){
         try {
             Connection connection = ConnectionConfiguration.getDBConnection();
             Statement statement = connection.createStatement();
-            String query = "insert into Quiz(IDQUIZ,QUESTION,VARIANTA,VARIANTB,VARIANTC,VARIANTD,RIGHTVARIANT)values( "+ putValidIdQuiz() + ",'" + quiz.getQuestion() + "','" + quiz.getVariantA() + "','" + quiz.getVariantB() + "','" + quiz.getVariantC() + "','" + quiz.getVariantD() + "','" + quiz.getRightVariant() + "')" ;
+            String query = "insert into Quiz(IDQUIZ,QUESTION,VARIANTA,VARIANTB,VARIANTC,VARIANTD,RIGHTVARIANT,IDTEST)values( "+ putValidIdQuiz() + ",'" + question + "','" + variantA + "','" + variantB+ "','" + variantC + "','" + variantD + "','" + rightVariant + "', "+ idTest + ")" ;
             statement.executeUpdate(query);
         }
         catch (Exception e)

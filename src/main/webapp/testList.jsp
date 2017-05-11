@@ -1,10 +1,12 @@
+<%@ page import="com.database.data.RuleRepository" %>
 <%@ page import="com.database.data.quiz.test.Test" %>
 <%@ page import="com.database.data.quiz.test.TestRepository" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
-<%String title = "Overview";%>
+<%String title = "list of test";%>
 <%@include file="blocks/header.jsp" %>
+<%@include file="blocks/checks/check-user-session.jsp" %>
 <body>
 <br><br><br><br>
 <div class="container">
@@ -25,16 +27,23 @@
                         <th>Subject</th>
                         <th>Time (min.)</th>
                         <th>Author</th>
-                        <th>Start</th>
+                        <%
+                            RuleRepository ruleRepository = new RuleRepository();
+                            if (ruleRepository.isTeacher(idRegistration)) {
+                        %>
+                        <th>View Quizzes</th>
                         <th>Edit</th>
                         <th>Delete</th>
+                        <%}else{%>
+                        <th>Start</th>
+                        <%}%>
                         </thead>
                         <tbody>
-                            <%
-                             HttpSession session1 = request.getSession();
-                             int idCourse = Integer.parseInt(session1.getAttribute("idCourse").toString());
-                             List<Test> testList = TestRepository.getTestsByIdCourse(idCourse);
-                             for (Test test: testList) {
+                        <%
+                            HttpSession session1 = request.getSession();
+                            int idCourse = Integer.parseInt(session1.getAttribute("idCourse").toString());
+                            List<Test> testList = TestRepository.getTestsByIdCourse(idCourse);
+                            for (Test test : testList) {
                         %>
                         <tr>
                             <td><%=test.getName()%>
@@ -43,6 +52,18 @@
                             </td>
                             <td><%=test.getAuthor()%>
                             </td>
+                            <%if (ruleRepository.isTeacher(idRegistration)) {%>
+                            <td>
+                                <form action="/viewQuizzes" method="post">
+                                    <input type="hidden" name="idTest" value="<%=test.getIdTest()%>">
+                                    <button class="btn btn-primary btn-xs" data-title="viewQuizzes" data-toggle="modal"
+                                            data-target="#viewQuizzes" type="submit"> View Quizzes
+                                    </button>
+                                </form>
+                            </td>
+                            <%@include file="blocks/overview/test/table-edit-test.jsp" %>
+                            <%@include file="blocks/overview/test/table-delete-test.jsp" %>
+                            <%}else{%>
                             <td>
                                 <form action="/startTest" method="post">
                                     <input type="hidden" name="idTest" value="<%=test.getIdTest()%>">
@@ -51,47 +72,12 @@
                                     </button>
                                 </form>
                             </td>
-                            <td>
-                                <form action="/editTest" method="post">
-                                    <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                        <input type="hidden" value="<%=test.getIdTest()%>"
-                                               name="idTest">
-                                        <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
-                                                data-target="#edit" type="submit"><span
-                                                class="glyphicon glyphicon-pencil"></span>
-                                        </button>
-                                    </p>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="/deleteTest" method="post">
-                                    <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                        <input type="hidden" value="<%=test.getIdTest()%>"
-                                               name="idTest">
-                                        <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal"
-                                                data-target="#delete" type="submit"><span
-                                                class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                </form>
-                                </p>
-                            </td>
+                            <%}%>
                         </tr>
-                            <% }
-                        %>
-                        <tfoot>
-                        <tr>
-                            <th>
-                                <a href="addTest.jsp" type="button" class="btn btn-success"><span
-                                        class="glyphicon glyphicon-plus"></span> Add new test
-                                </a>
-                            </th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        </tfoot>
+                        <%}%>
+                        <%if (ruleRepository.isTeacher(idRegistration)) {%>
+                        <%@include file="blocks/overview/test/table-footer-add-test.jsp" %>
+                        <%}%>
                         </tbody>
                     </table>
                 </div>

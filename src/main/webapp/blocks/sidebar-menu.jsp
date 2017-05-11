@@ -12,6 +12,7 @@
                 <i class="glyphicon glyphicon-flag"></i>
                 Help </a>
         </li>
+        <%@include file="sub_blocks/sidebar-sub-menu-logout.jsp"%>
     </ul>
 </div>
 <!-- END MENU -->

@@ -5,8 +5,6 @@
     <link rel="stylesheet" type="text/css" href="css/mycss/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="css/mycss/admin-list-panel.css">
     <link rel="stylesheet" type="text/css" href="css/mycss/admin-menu.css">
-    <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="js/myjs/function.js"></script>
     <title><%=title%></title>
     <!-- Bootstrap -->
     <link href=" css/bootstrap.css" rel="stylesheet">
