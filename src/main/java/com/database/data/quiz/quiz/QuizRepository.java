@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,25 @@ public class QuizRepository {
             throw new RuntimeException(e);
         }
         return quizList;
+    }
+
+    public Map<Integer,Variant>  getQuizRightVariantByIdTest(int idTest) throws Exception{
+        Map<Integer,Variant> map = new HashMap<Integer, Variant>();
+        try {
+            Connection connection = ConnectionConfiguration.getDBConnection();
+            Statement statement = connection.createStatement();
+            String query = "select idQuiz,RightVariant from Quiz where idTest = " + idTest;
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()){
+                int idQuiz = Integer.parseInt(resultSet.getString("idQuiz"));
+                String rightVariant = resultSet.getString("rightVariant");
+                Variant trueVariant = ConvertInEnumFrom.convertInEnumFromString(rightVariant);
+                map.put(idQuiz,trueVariant);
+            }
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+        return map;
     }
 
     public Map<Variant,String> getVariantsByIdQuiz(int idQuiz) throws Exception{
